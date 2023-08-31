@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Excel Report Generator</title>
+</head>
+<body>
+    <h1>Excel Report Generator</h1>
+    <form action="/download-table" method="post">
+        <label for="table_name">Выберите таблицу:</label><br>
+        <select name="table_name">
+            {% for table in tables %}
+                <option value="{{ table[0] }}">{{ table[0] }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Скачать таблицу</button>
+    </form>
+
+    <form action="/download-all-tables" method="post">
+        <label for="table_name">Выберите таблицы:</label><br>
+        <select name="table_name" multiple>
+            {% for table in tables %}
+                <option value="{{ table[0] }}">{{ table[0] }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Скачать все таблицы</button>
+    </form>
+    
+    <h2>Список таблиц:</h2>
+    <ul>
+        {% for table in tables %}
+            <li>{{ table[0] }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
