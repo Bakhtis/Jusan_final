@@ -5,23 +5,34 @@ services:
       context: ./server
     ports:
       - "8081:8081"
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://database-1-jusan.co9yxdynjyur.us-west-2.rds.amazonaws.com:5432/hackathon
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/hackathon
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-  # db:
-  #   image: postgres:13
-  #   ports:
-  #     - "5434:5434"
-  #   environment:
-  #     POSTGRES_DB: hackathon
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: postgres
+  db:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: hackathon
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
   frontend:
     build:
       context: ./client
     ports:
       - "3000:3000"
+  report-service:
+    build:
+      context: ./report_service
+    environment:
+      POSTGRES_DB: hackathon
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./reports:/app/reports
