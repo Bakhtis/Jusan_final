@@ -12,7 +12,7 @@ def generate_report():
         dbname="hackathon",
         user="postgres",
         password="postgres",
-        host="examdevops_db_1",
+        host="jdbc:postgresql://database-1-jusan.co9yxdynjyur.us-west-2.rds.amazonaws.com:5432/hackathon",
         port="5432"
     )
     
